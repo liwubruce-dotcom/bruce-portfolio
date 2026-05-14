@@ -479,6 +479,92 @@ function AboutPage({ onBack }) {
   );
 }
 
+function ContactPage({ onBack, onNavigate }) {
+  return (
+    <section className="page">
+      <button className="back-button" onClick={onBack}>
+        ← Back to Shelf
+      </button>
+
+      <div className="contact-layout">
+        <div className="contact-main">
+          <p className="eyebrow">Get in Touch</p>
+          <h1>Let’s connect.</h1>
+
+          <p>
+            I am open to mechanical engineering co-op opportunities related to
+            CAD design, product development, R&D, prototyping, manufacturing,
+            quality engineering, and automotive systems.
+          </p>
+
+          <p>
+            If you are interested in my projects, resume, or engineering
+            experience, feel free to contact me by email or connect with me on
+            LinkedIn.
+          </p>
+
+          <div className="contact-button-row">
+            <a
+              className="contact-button primary-contact-button"
+              href="mailto:liwubruce@gmail.com"
+            >
+              Email Me
+            </a>
+
+            <a
+              className="contact-button secondary-contact-button"
+              href="https://www.linkedin.com/in/xubin-shi-1bb935329"
+              target="_blank"
+              rel="noreferrer"
+            >
+              View LinkedIn
+            </a>
+
+            <button
+              className="contact-button secondary-contact-button"
+              onClick={() => onNavigate("resume")}
+            >
+              View Resume
+            </button>
+          </div>
+        </div>
+
+        <div className="contact-card-column">
+          <article className="contact-info-card">
+            <span>Email</span>
+            <h2>liwubruce@gmail.com</h2>
+            <p>Best way to reach me for co-op and engineering opportunities.</p>
+          </article>
+
+          <article className="contact-info-card">
+            <span>LinkedIn</span>
+            <h2>Bruce Shi</h2>
+            <p>Connect with me professionally and view my engineering updates.</p>
+          </article>
+
+          <article className="contact-info-card">
+            <span>Availability</span>
+            <h2>Open to Co-op Roles</h2>
+            <p>
+              Seeking mechanical design, R&D, CAD, manufacturing, and automotive
+              engineering opportunities.
+            </p>
+          </article>
+
+          <article className="contact-info-card">
+            <span>Location</span>
+            <h2>Worldwide</h2>
+            <p>
+              Available for in-person, hybrid, or commute-based opportunities
+              depending on the role.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function SectionPage({ title, subtitle, description, onBack }) {
   return (
     <section className="page">
@@ -562,6 +648,15 @@ if (currentPage === "resume") {
 
 if (currentPage === "about") {
   return <AboutPage onBack={() => setCurrentPage("home")} />;
+}
+
+if (currentPage === "contact") {
+  return (
+    <ContactPage
+      onBack={() => setCurrentPage("home")}
+      onNavigate={setCurrentPage}
+    />
+  );
 }
 
 if (currentPage !== "home") {
