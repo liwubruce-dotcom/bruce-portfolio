@@ -10,9 +10,23 @@ function HomePage({ onNavigate }) {
       <div className="intro-panel">
         <p className="eyebrow">Mechanical Engineering Portfolio</p>
         <h1>Bruce Shi</h1>
+
         <p>
-          Explore my work through an interactive engineering shelf. Each object
-          represents a different part of my portfolio.
+          Explore my engineering work through an interactive 3D shelf. Each
+          object represents a different part of my portfolio, including projects,
+          skills, resume, gallery, and contact information.
+        </p>
+
+        <div className="homepage-tags">
+          <span>CAD Design</span>
+          <span>Prototyping</span>
+          <span>Manufacturing</span>
+          <span>Automotive</span>
+        </div>
+
+        <p className="shelf-instruction">
+          Hover over an object to preview it. Click an object to open that
+          section.
         </p>
       </div>
 

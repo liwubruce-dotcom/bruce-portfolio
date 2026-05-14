@@ -1,5 +1,5 @@
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Html } from "@react-three/drei";
+import { OrbitControls, Html, Float } from "@react-three/drei";
 import { useState } from "react";
 
 function Shelf() {
@@ -225,7 +225,13 @@ function ShelfItem({
       }}
       onClick={handleClick}
     >
-      {renderObject()}
+      <Float
+        speed={hovered ? 2.2 : 1}
+        rotationIntensity={hovered ? 0.35 : 0.08}
+        floatIntensity={hovered ? 0.25 : 0.08}
+      >
+        {renderObject()}
+      </Float>
 
       {hovered && (
         <Html position={[0, 1.05, 0]} center>
@@ -242,10 +248,19 @@ function ShelfItem({
 function ShelfScene({ onNavigate }) {
   return (
     <div className="shelf-scene">
-      <Canvas camera={{ position: [0, 1.15, 7], fov: 43 }}>
-        <ambientLight intensity={0.65} />
-        <directionalLight position={[4, 5, 6]} intensity={1.35} />
-        <pointLight position={[-3, 2.5, 3]} intensity={0.7} />
+      <Canvas
+        shadows
+        camera={{ position: [0, 1.15, 7], fov: 43 }}
+      >
+        <color attach="background" args={["#0f172a"]} />
+        <ambientLight intensity={0.55} />
+        <directionalLight
+          position={[4, 6, 5]}
+          intensity={1.6}
+          castShadow
+        />
+        <pointLight position={[-3, 2.5, 3]} intensity={0.9} />
+        <pointLight position={[3, -1, 2]} intensity={0.35} color="#60a5fa" />
 
         <Shelf />
 
