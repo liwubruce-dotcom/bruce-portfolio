@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Routes, Route, useNavigate, useParams } from "react-router-dom";
 import "./App.css";
 import ShelfScene from "./components/ShelfScene";
 import { projects } from "./data/projects";
@@ -206,6 +206,31 @@ function ProjectDetailPage({ project, onBackToProjects }) {
         </div>
       </div>
     </section>
+  );
+}
+
+function ProjectRoutePage() {
+  const navigate = useNavigate();
+  const { projectId } = useParams();
+
+  const selectedProject = projects.find((project) => project.id === projectId);
+
+  if (!selectedProject) {
+    return (
+      <SectionPage
+        title="Project Not Found"
+        subtitle="Error"
+        description="The project you are looking for does not exist."
+        onBack={() => navigate("/projects")}
+      />
+    );
+  }
+
+  return (
+    <ProjectDetailPage
+      project={selectedProject}
+      onBackToProjects={() => navigate("/projects")}
+    />
   );
 }
 
@@ -678,108 +703,82 @@ function SectionPage({ title, subtitle, description, onBack }) {
 }
 
 function App() {
-  const [currentPage, setCurrentPage] = useState("home");
+  const navigate = useNavigate();
 
-  const pages = {
-    gallery: {
-      title: "Photo Gallery",
-      subtitle: "Visual Work",
-      description:
-        "This page will include project photos, CAD screenshots, prototypes, manufacturing process images, and final build photos.",
-    },
-    resume: {
-      title: "Resume",
-      subtitle: "Professional Summary",
-      description:
-        "This page will contain my resume, downloadable PDF, technical skills, work experience, and contact information.",
-    },
-    about: {
-      title: "About Me",
-      subtitle: "Background",
-      description:
-        "This page will explain my engineering background, interests in automotive systems, product design, CAD, prototyping, and future career direction.",
-    },
-    skills: {
-      title: "Skills",
-      subtitle: "Technical Toolkit",
-      description:
-        "This page will summarize my technical skills, including SolidWorks, CATIA, CAD drawings, FDM 3D printing, composites, QA, manufacturing, and engineering documentation.",
-    },
-    contact: {
-      title: "Contact",
-      subtitle: "Get in Touch",
-      description:
-        "This page will include my email, LinkedIn, resume link, and other professional contact information.",
-    },
-  };
-
-  if (currentPage === "projects") {
-    return (
-      <ProjectsPage
-        onBack={() => setCurrentPage("home")}
-        onOpenProject={(projectId) => setCurrentPage(`project-${projectId}`)}
-      />
-    );
+  function goToPage(page) {
+    navigate(`/${page}`);
   }
-
-  if (currentPage.startsWith("project-")) {
-    const projectId = currentPage.replace("project-", "");
-    const selectedProject = projects.find((project) => project.id === projectId);
-
-    return (
-      <ProjectDetailPage
-        project={selectedProject}
-        onBackToProjects={() => setCurrentPage("projects")}
-      />
-    );
-  }
-
-if (currentPage === "skills") {
-  return <SkillsPage onBack={() => setCurrentPage("home")} />;
-}
-
-if (currentPage === "resume") {
-  return <ResumePage onBack={() => setCurrentPage("home")} />;
-}
-
-if (currentPage === "about") {
-  return <AboutPage onBack={() => setCurrentPage("home")} />;
-}
-
-if (currentPage === "contact") {
-  return (
-    <ContactPage
-      onBack={() => setCurrentPage("home")}
-      onNavigate={setCurrentPage}
-    />
-  );
-}
-
-if (currentPage === "gallery") {
-  return (
-    <GalleryPage
-      onBack={() => setCurrentPage("home")}
-      onNavigate={setCurrentPage}
-    />
-  );
-}
-
-if (currentPage !== "home") {
-  const page = pages[currentPage];
-
-  return (
-    <SectionPage
-      title={page.title}
-      subtitle={page.subtitle}
-      description={page.description}
-      onBack={() => setCurrentPage("home")}
-    />
-  );
-}
 
   return (
     <main>
-      <HomePage onNavigate={setCurrentPage} />
+      <Routes>
+        <Route
+          path="/"
+          element={<HomePage onNavigate={goToPage} />}
+        />
+
+        <Route
+          path="/projects"
+          element={
+            <ProjectsPage
+              onBack={() => navigate("/")}
+              onOpenProject={(projectId) => navigate(`/projects/${projectId}`)}
+            />
+          }
+        />
+
+        <Route
+          path="/projects/:projectId"
+          element={<ProjectRoutePage />}
+        />
+
+        <Route
+          path="/skills"
+          element={<SkillsPage onBack={() => navigate("/")} />}
+        />
+
+        <Route
+          path="/resume"
+          element={<ResumePage onBack={() => navigate("/")} />}
+        />
+
+        <Route
+          path="/about"
+          element={<AboutPage onBack={() => navigate("/")} />}
+        />
+
+        <Route
+          path="/contact"
+          element={
+            <ContactPage
+              onBack={() => navigate("/")}
+              onNavigate={goToPage}
+            />
+          }
+        />
+
+        <Route
+          path="/gallery"
+          element={
+            <GalleryPage
+              onBack={() => navigate("/")}
+              onNavigate={goToPage}
+            />
+          }
+        />
+
+        <Route
+          path="*"
+          element={
+            <SectionPage
+              title="Page Not Found"
+              subtitle="404"
+              description="The page you are looking for does not exist."
+              onBack={() => navigate("/")}
+            />
+          }
+        />
+      </Routes>
     </main>
   );
 }
