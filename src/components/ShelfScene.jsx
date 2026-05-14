@@ -1,6 +1,6 @@
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useThree } from "@react-three/fiber";
 import { OrbitControls, Html, Float } from "@react-three/drei";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function Shelf() {
   return (
@@ -245,6 +245,27 @@ function ShelfItem({
   );
 }
 
+function ResponsiveCamera() {
+  const { camera, size } = useThree();
+
+  useEffect(() => {
+    if (size.width < 600) {
+      camera.position.set(0, 1.1, 11);
+      camera.fov = 55;
+    } else if (size.width < 900) {
+      camera.position.set(0, 1.1, 9);
+      camera.fov = 50;
+    } else {
+      camera.position.set(0, 1.15, 7);
+      camera.fov = 43;
+    }
+
+    camera.updateProjectionMatrix();
+  }, [camera, size.width]);
+
+  return null;
+}
+
 function ShelfScene({ onNavigate }) {
   return (
     <div className="shelf-scene">
@@ -261,6 +282,8 @@ function ShelfScene({ onNavigate }) {
         />
         <pointLight position={[-3, 2.5, 3]} intensity={0.9} />
         <pointLight position={[3, -1, 2]} intensity={0.35} color="#60a5fa" />
+
+        <ResponsiveCamera />
 
         <Shelf />
 

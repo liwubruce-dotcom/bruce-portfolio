@@ -1097,3 +1097,24 @@ main {
   color: #dbeafe !important;
   font-size: 17px !important;
 }
+
+/* Mobile 3D shelf improvement */
+@media (max-width: 700px) {
+  .shelf-homepage {
+    padding: 28px 4%;
+    gap: 24px;
+  }
+
+  .shelf-scene {
+    height: 430px;
+    border-radius: 24px;
+  }
+
+  .intro-panel h1 {
+    font-size: 44px;
+  }
+
+  .intro-panel p {
+    font-size: 16px;
+  }
+}
