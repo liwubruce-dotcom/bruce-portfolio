@@ -407,6 +407,78 @@ function ResumePage({ onBack }) {
   );
 }
 
+function AboutPage({ onBack }) {
+  return (
+    <section className="page">
+      <button className="back-button" onClick={onBack}>
+        ← Back to Shelf
+      </button>
+
+      <div className="about-layout">
+        <div className="about-photo-card">
+          <img
+            src="/profile/selfie.jpg"
+            alt="Bruce Shi"
+            className="about-selfie"
+          />
+
+          <div className="about-profile-info">
+            <h2>Bruce Shi</h2>
+            <p>Mechanical Engineering Student</p>
+            <span>University of Waterloo</span>
+          </div>
+        </div>
+
+        <div className="about-content">
+          <p className="eyebrow">About Me</p>
+          <h1>Designing, building, and improving mechanical systems.</h1>
+
+          <p>
+            I am a Mechanical Engineering student at the University of Waterloo,
+            focused on CAD design, product development, prototyping,
+            manufacturing, and engineering problem-solving. I enjoy taking an
+            idea from concept to physical prototype through modeling, testing,
+            iteration, and hands-on fabrication.
+          </p>
+
+          <p>
+            My work combines engineering design with practical manufacturing
+            experience. Through co-op experience, design projects, and personal
+            builds, I have worked with CAD modeling, engineering drawings,
+            GD&T, BOM management, quality inspection, 3D printing, composite
+            manufacturing, and mechanical assembly.
+          </p>
+
+          <p>
+            I am especially interested in automotive engineering and product
+            design. I love cars, and my dream car is the Bugatti Chiron. Outside
+            of coursework and projects, I regularly follow automotive technology
+            news to learn how new vehicles, powertrains, materials, aerodynamics,
+            manufacturing methods, and intelligent systems are developing.
+          </p>
+
+          <div className="about-highlight-grid">
+            <div className="about-highlight">
+              <h3>Engineering Focus</h3>
+              <p>CAD, product design, prototyping, manufacturing, and R&D.</p>
+            </div>
+
+            <div className="about-highlight">
+              <h3>Hands-On Style</h3>
+              <p>Build, test, evaluate, and improve through iteration.</p>
+            </div>
+
+            <div className="about-highlight">
+              <h3>Automotive Interest</h3>
+              <p>Cars, vehicle technology, performance engineering, and design.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function SectionPage({ title, subtitle, description, onBack }) {
   return (
     <section className="page">
@@ -486,6 +558,10 @@ if (currentPage === "skills") {
 
 if (currentPage === "resume") {
   return <ResumePage onBack={() => setCurrentPage("home")} />;
+}
+
+if (currentPage === "about") {
+  return <AboutPage onBack={() => setCurrentPage("home")} />;
 }
 
 if (currentPage !== "home") {
