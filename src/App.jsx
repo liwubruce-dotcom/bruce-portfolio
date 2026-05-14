@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import ShelfScene from "./components/ShelfScene";
 import { projects } from "./data/projects";
+import { travelCountries } from "./data/travelGallery";
 
 function HomePage({ onNavigate }) {
   return (
@@ -565,6 +566,87 @@ function ContactPage({ onBack, onNavigate }) {
   );
 }
 
+function GalleryPage({ onBack, onNavigate }) {
+  return (
+    <section className="page">
+      <button className="back-button" onClick={onBack}>
+        ← Back to Shelf
+      </button>
+
+      <div className="page-header">
+        <p className="eyebrow">Photo Gallery</p>
+        <h1>Visual Work & Travel</h1>
+        <p>
+          A visual space for engineering project photos, CAD screenshots,
+          prototypes, travel memories, and future interactive map-based photo
+          collections.
+        </p>
+      </div>
+
+      <div className="gallery-feature-grid">
+        <article className="gallery-feature-card engineering-gallery-card">
+          <div className="gallery-feature-content">
+            <p className="gallery-card-label">Engineering Gallery</p>
+            <h2>Project Photos</h2>
+            <p>
+              Browse CAD screenshots, prototypes, fabrication process images,
+              final builds, and detailed project galleries.
+            </p>
+
+            <button
+              className="gallery-action-button"
+              onClick={() => onNavigate("projects")}
+            >
+              View Projects →
+            </button>
+          </div>
+        </article>
+
+        <article className="gallery-feature-card travel-gallery-card">
+          <div className="gallery-feature-content">
+            <p className="gallery-card-label">Travel Gallery</p>
+            <h2>Map-Based Travel Photos</h2>
+            <p>
+              A future interactive travel gallery organized by country, map
+              pins, locations, and photo albums.
+            </p>
+
+            <span className="coming-soon-pill">Planned Feature</span>
+          </div>
+        </article>
+      </div>
+
+      <div className="country-section">
+        <div className="gallery-header">
+          <p className="eyebrow">Future Travel Maps</p>
+          <h2>Countries</h2>
+          <p>
+            These country cards will later open interactive maps with red pins.
+            Hovering a pin will show the location name, and clicking it will
+            open a photo page for that location.
+          </p>
+        </div>
+
+        <div className="country-grid">
+          {travelCountries.map((country) => (
+            <article className="country-card" key={country.id}>
+              <div className="country-map-placeholder">
+                <span>{country.coverLabel}</span>
+              </div>
+
+              <div className="country-card-content">
+                <p className="country-status">{country.status}</p>
+                <h3>{country.name}</h3>
+                <p>{country.description}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function SectionPage({ title, subtitle, description, onBack }) {
   return (
     <section className="page">
@@ -653,6 +735,15 @@ if (currentPage === "about") {
 if (currentPage === "contact") {
   return (
     <ContactPage
+      onBack={() => setCurrentPage("home")}
+      onNavigate={setCurrentPage}
+    />
+  );
+}
+
+if (currentPage === "gallery") {
+  return (
+    <GalleryPage
       onBack={() => setCurrentPage("home")}
       onNavigate={setCurrentPage}
     />
