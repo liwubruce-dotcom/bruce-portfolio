@@ -335,6 +335,78 @@ function SkillsPage({ onBack }) {
   );
 }
 
+function ResumePage({ onBack }) {
+  const resumes = [
+    {
+      title: "English Resume",
+      description:
+        "CAD-focused mechanical engineering resume for co-op, design, R&D, manufacturing, and product development roles.",
+      file: "/resumes/bruce-shi-resume-en.pdf",
+    },
+    {
+      title: "Chinese Resume",
+      description:
+        "Chinese version of my resume for employers, recruiters, and engineering opportunities requiring Chinese-language materials.",
+      file: "/resumes/bruce-shi-resume-cn.pdf",
+    },
+  ];
+
+  return (
+    <section className="page">
+      <button className="back-button" onClick={onBack}>
+        ← Back to Shelf
+      </button>
+
+      <div className="page-header">
+        <p className="eyebrow">Professional Summary</p>
+        <h1>Resume</h1>
+        <p>
+          Download or view my English and Chinese resumes. These documents
+          summarize my mechanical engineering education, co-op experience,
+          CAD skills, prototyping experience, and project work.
+        </p>
+      </div>
+
+      <div className="resume-grid">
+        {resumes.map((resume) => (
+          <article className="resume-card" key={resume.title}>
+            <div className="resume-preview">
+              <iframe
+                src={`${resume.file}#toolbar=0&navpanes=0`}
+                title={resume.title}
+              />
+            </div>
+
+            <div className="resume-card-content">
+              <h2>{resume.title}</h2>
+              <p>{resume.description}</p>
+
+              <div className="resume-button-row">
+                <a
+                  className="resume-button primary-resume-button"
+                  href={resume.file}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  View PDF
+                </a>
+
+                <a
+                  className="resume-button secondary-resume-button"
+                  href={resume.file}
+                  download
+                >
+                  Download
+                </a>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function SectionPage({ title, subtitle, description, onBack }) {
   return (
     <section className="page">
@@ -410,6 +482,10 @@ function App() {
 
 if (currentPage === "skills") {
   return <SkillsPage onBack={() => setCurrentPage("home")} />;
+}
+
+if (currentPage === "resume") {
+  return <ResumePage onBack={() => setCurrentPage("home")} />;
 }
 
 if (currentPage !== "home") {
