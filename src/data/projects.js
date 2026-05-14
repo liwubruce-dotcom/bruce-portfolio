@@ -65,7 +65,7 @@ export const projects = [
     type: "Personal Project",
     date: "Jun 2025 – Aug 2025",
     category: "Composite Manufacturing / Mold Design",
-    image: "public/project-images/airpods-case/final-case.jpg",
+    image: "/project-images/airpods-case/final-case.jpg",
     imageLabel: "AirPods Case Image",
     description:
       "Designed and manufactured a carbon fiber AirPods Pro 2 case, focusing on CAD mold design, tolerance modeling, and composite fabrication.",
@@ -78,10 +78,10 @@ export const projects = [
       "Finished with 400 → 10 000 grit sanding, achieving a mirror-like surface and uniform fiber weave.",
     ],
     gallery: [
-      { src: "public/project-images/airpods-case/old-mold.jpg", caption: "Initial mold version" },
-      { src: "public/project-images/airpods-case/new-mold.jpg", caption: "Refined split-mold design" },
-      { src: "public/project-images/airpods-case/cf-initial.jpg", caption: "The demolded carbon fiber shell" },
-      { src: "public/project-images/airpods-case/final-case.jpg", caption: "Final polished prototype" }
+      { src: "/project-images/airpods-case/old-mold.jpg", caption: "Initial mold version" },
+      { src: "/project-images/airpods-case/new-mold.jpg", caption: "Refined split-mold design" },
+      { src: "/project-images/airpods-case/cf-initial.jpg", caption: "The demolded carbon fiber shell" },
+      { src: "/project-images/airpods-case/final-case.jpg", caption: "Final polished prototype" }
     ],
   },
   {
@@ -90,7 +90,7 @@ export const projects = [
     type: "Personal Project",
     date: "May 2025 – Jun 2025",
     category: "SolidWorks Assembly / Motion Study",
-    image: "public/project-images/v12-engine/final-engine.jpg",
+    image: "/project-images/v12-engine/final-engine.jpg",
     imageLabel: "V12 Engine Image",
     description:
       "Modeled and assembled a complete V12 internal combustion engine in SolidWorks to strengthen CAD, motion analysis, and assembly proficiency.",
@@ -101,8 +101,8 @@ export const projects = [
       "Performed motion study analysis to visualize full rotational cycles."
     ],
     gallery: [
-      { src: "public/project-images/v12-engine/final-engine.jpg", caption: "Assembled V12 engine" },
-      { src: "public/project-images/v12-engine/exploded-engine.jpg", caption: "Exploded assembly view" },
+      { src: "/project-images/v12-engine/final-engine.jpg", caption: "Assembled V12 engine" },
+      { src: "/project-images/v12-engine/exploded-engine.jpg", caption: "Exploded assembly view" },
     ],
   },
   {
@@ -111,7 +111,7 @@ export const projects = [
     type: "Group Project, 2 Members",
     date: "Apr 2025",
     category: "Mechatronic Design / Prototyping",
-    image: "public/project-images/useless-box/final-box.jpg",
+    image: "/project-images/useless-box/final-box.jpg",
     imageLabel: "Useless Box Image",
     description:
       "Designed and built an interactive Useless Box powered by Arduino UNO and servo motors, focusing on mechanical design, and iteration through CAD.",
@@ -125,8 +125,8 @@ export const projects = [
       "Integrate 8 servo-driven programmed reactions through the Arduino IDE, completing a fully functional prototype."
     ],
     gallery: [
-      { src: "public/project-images/useless-box/sw-assembly.jpg", caption: "Section view of assembly" },
-      { src: "public/project-images/useless-box/final-box.jpg", caption: "Final functional prototype" }
+      { src: "/project-images/useless-box/sw-assembly.jpg", caption: "Section view of assembly" },
+      { src: "/project-images/useless-box/final-box.jpg", caption: "Final functional prototype" }
     ],
   },
   {
@@ -135,7 +135,7 @@ export const projects = [
     type: "Team Project, 4 Members",
     date: "Sept 2024 – Dec 2024",
     category: "Mechanical Design / Prototyping",
-    image: "public/project-images/flappy-bird-toy/final-toy.jpg",
+    image: "/project-images/flappy-bird-toy/final-toy.jpg",
     imageLabel: "Flappy Bird Toy Image",
     description:
       "Developed a physical tabletop toy replicating the digital Flappy Bird game, applying mechanical design and prototyping skills to meet functional and safety requirements.",
@@ -148,7 +148,7 @@ export const projects = [
       "Prototyped a pushbutton circuit wired for TT motors for collision-based auto-stop."
     ],
     gallery: [
-      { src: "public/project-images/flappy-bird-toy/final-toy.jpg", caption: "Final assembly photo" }
+      { src: "/project-images/flappy-bird-toy/final-toy.jpg", caption: "Final assembly photo" }
     ],
   },
   {
@@ -157,7 +157,7 @@ export const projects = [
     type: "Team Project, 4 Members",
     date: "Jan 2025 – Apr 2025",
     category: "Robotics / Mechanical Design / Automation",
-    image: "public/project-images/card-sorter/final-robot.jpg",
+    image: "/project-images/card-sorter/final-robot.jpg",
     imageLabel: "Card Sorter Image",
     description:
       "Designed and built an autonomous robot capable of sorting, shuffling, and dealing a 52-card deck using LEGO EV3 components, custom 3D-printed parts, and laser-cut supports.",
@@ -171,9 +171,9 @@ export const projects = [
       "Validated 52-card capacity, orientation accuracy, and cycle reliability."
     ],
     gallery: [
-      { src: "public/project-images/card-sorter/draft-robot.jpg", caption: "Initial design sketch" },
-      { src: "public/project-images/card-sorter/flow-chart-robot.jpg", caption: "Complete flow chart" },
-      { src: "public/project-images/card-sorter/final-robot.jpg", caption: "Final robot assembly" },
+      { src: "/project-images/card-sorter/draft-robot.jpg", caption: "Initial design sketch" },
+      { src: "/project-images/card-sorter/flow-chart-robot.jpg", caption: "Complete flow chart" },
+      { src: "/project-images/card-sorter/final-robot.jpg", caption: "Final robot assembly" },
     ],
   },
   {
@@ -182,7 +182,7 @@ export const projects = [
     type: "Personal Project",
     date: "Apr 2025 – Present",
     category: "3D Modeling / Automotive Visualization",
-    image: "public/project-images/mclaren-model/front-car.jpg",
+    image: "/project-images/mclaren-model/front-car.jpg",
     imageLabel: "McLaren Model Image",
     description:
       "Developing a high-detail 3D model of the McLaren 720S Spider in Blender, focusing on advanced surface modeling, geometry control, and visualization.",
@@ -195,10 +195,10 @@ export const projects = [
       "Strengthens spatial reasoning, surface modeling, and visual communication for CAD and product design."
     ],
     gallery: [
-      { src: "public/project-images/mclaren-model/front-car.jpg", caption: "Solid exterior model, front view" },
-      { src: "public/project-images/mclaren-model/back-car.jpg", caption: "Solid exterior model, back view" },
-      { src: "public/project-images/mclaren-model/interior-car.jpg", caption: "Interior model" },
-      { src: "public/project-images/mclaren-model/rendered.jpg", caption: "Future rendered visualization" }
+      { src: "/project-images/mclaren-model/front-car.jpg", caption: "Solid exterior model, front view" },
+      { src: "/project-images/mclaren-model/back-car.jpg", caption: "Solid exterior model, back view" },
+      { src: "/project-images/mclaren-model/interior-car.jpg", caption: "Interior model" },
+      { src: "/project-images/mclaren-model/rendered.jpg", caption: "Future rendered visualization" }
     ],
   },
 ];
