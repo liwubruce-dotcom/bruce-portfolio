@@ -194,6 +194,147 @@ function ProjectDetailPage({ project, onBackToProjects }) {
   );
 }
 
+function SkillsPage({ onBack }) {
+  const skillCategories = [
+    {
+      title: "CAD, FEA & 3D Modeling",
+      description:
+        "Tools used for mechanical design, assembly modeling, simulation, surfacing, and visualization.",
+      skills: [
+        "SolidWorks",
+        "AutoCAD",
+        "Creo",
+        "CATIA",
+        "Ansys",
+        "Blender",
+        "FEA",
+        "Motion Study",
+        "Surface Modeling",
+        "Assembly Design",
+        "Engineering Drawings",
+      ],
+    },
+    {
+      title: "Engineering Tools & Standards",
+      description:
+        "Engineering documentation, design management, manufacturing standards, and design-for-manufacturing knowledge.",
+      skills: [
+        "Windchill PLM",
+        "BOM Management",
+        "GD&T",
+        "DFM",
+        "ISO Standards",
+        "Root Cause Analysis",
+        "Failure Analysis",
+        "Manufacturing Validation",
+        "Engineering Change Tracking",
+      ],
+    },
+    {
+      title: "Prototyping & Fabrication",
+      description:
+        "Hands-on manufacturing and prototyping skills used to turn CAD designs into physical parts.",
+      skills: [
+        "FDM 3D Printing",
+        "SLA 3D Printing",
+        "CNC Machining",
+        "Laser Cutting",
+        "Composite Manufacturing",
+        "Carbon Fiber Hand Layup",
+        "Carbon Fiber Vacuum Bagging",  
+        "Machine Shop Tools (Drill Press, Lathe, Mill)",
+        "Fixture Design",
+        "Mold Design",
+      ],
+    },
+    {
+      title: "Quality, Inspection & Testing",
+      description:
+        "Inspection and validation skills developed through manufacturing and quality assurance experience.",
+      skills: [
+        "CMM Inspection",
+        "Calipers",
+        "Micrometers",
+        "Height Gauges",
+        "Dimensional Inspection",
+        "Metallurgical Inspection",
+        "Weld Quality Evaluation",
+        "Heat Treatment Evaluation",
+        "Tolerance Checking",
+        "Quality Documentation",
+      ],
+    },
+    {
+      title: "Programming & Electronics",
+      description:
+        "Programming, robotics, embedded systems, and technical computing tools used in design projects.",
+      skills: [
+        "Python",
+        "Java",
+        "C++",
+        "MATLAB",
+        "ROBOTC",
+        "Arduino",
+        "Arduino IDE",
+        "LEGO EV3",
+        "Servo Motors",
+        "Circuit Prototyping",
+      ],
+    },
+    {
+      title: "General & Professional Skills",
+      description:
+        "General tools and communication skills that support engineering work, documentation, and design presentation.",
+      skills: [
+        "MS Office",
+        "Excel",
+        "Word",
+        "PowerPoint",
+        "Digital Drawing",
+        "Sketching",  
+        "Team Collaboration",
+        "Design Presentation",
+        "Problem Solving",
+      ],
+    },
+  ];
+
+  return (
+    <section className="page">
+      <button className="back-button" onClick={onBack}>
+        ← Back to Shelf
+      </button>
+
+      <div className="page-header">
+        <p className="eyebrow">Technical Toolkit</p>
+        <h1>Skills</h1>
+        <p>
+          A summary of my CAD, engineering, prototyping, programming,
+          manufacturing, and quality-related skills developed through co-op
+          experience, design projects, and personal engineering work.
+        </p>
+      </div>
+
+      <div className="skills-grid">
+        {skillCategories.map((category) => (
+          <article className="skill-card" key={category.title}>
+            <div className="skill-card-header">
+              <h2>{category.title}</h2>
+              <p>{category.description}</p>
+            </div>
+
+            <div className="skill-chip-list">
+              {category.skills.map((skill) => (
+                <span key={skill}>{skill}</span>
+              ))}
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function SectionPage({ title, subtitle, description, onBack }) {
   return (
     <section className="page">
@@ -267,18 +408,22 @@ function App() {
     );
   }
 
-  if (currentPage !== "home") {
-    const page = pages[currentPage];
+if (currentPage === "skills") {
+  return <SkillsPage onBack={() => setCurrentPage("home")} />;
+}
 
-    return (
-      <SectionPage
-        title={page.title}
-        subtitle={page.subtitle}
-        description={page.description}
-        onBack={() => setCurrentPage("home")}
-      />
-    );
-  }
+if (currentPage !== "home") {
+  const page = pages[currentPage];
+
+  return (
+    <SectionPage
+      title={page.title}
+      subtitle={page.subtitle}
+      description={page.description}
+      onBack={() => setCurrentPage("home")}
+    />
+  );
+}
 
   return (
     <main>
