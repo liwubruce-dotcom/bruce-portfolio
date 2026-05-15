@@ -1,6 +1,6 @@
-import { Canvas, useThree } from "@react-three/fiber";
+import { Canvas, useThree, useFrame } from "@react-three/fiber";
 import { OrbitControls, Html, Float, useGLTF } from "@react-three/drei";
-import { Suspense, useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useRef, useMemo, useState } from "react";
 import * as THREE from "three";
 
 function createWoodTexture(baseColor = "#5a3f2e", lineColor = "#7a563e") {
@@ -96,7 +96,7 @@ function ResponsiveCamera() {
       camera.position.set(0, 0.25, 9.2);
       camera.fov = 48;
     } else {
-      camera.position.set(0, 0.35, 7.4);
+      camera.position.set(0, 0.35, 9);
       camera.fov = 42;
     }
 
@@ -355,12 +355,12 @@ const modelSettings = {
     path: "/models/notebook.glb",
     scale: 0.03,
     rotation: [1.2, Math.PI + 3.05, 0.3],
-    position: [0, 0.9, 0],
+    position: [2, 1.6, 0],
     fallback: <NotebookModel />,
   },
   toolbox: {
     path: "/models/toolbox.glb",
-    scale: 0.32,
+    scale: 0.3,
     rotation: [0, Math.PI + 3, 0],
     position: [-0.5, -0.8, 0],
     fallback: <ToolboxModel />,
@@ -369,7 +369,7 @@ const modelSettings = {
     path: "/models/envelope.glb",
     scale: 0.15,
     rotation: [4, Math.PI, 0],
-    position: [0, 0.2, 0.2],
+    position: [0, 0.5, 0.2],
     fallback: <EnvelopeModel />,
   },
 };
@@ -383,6 +383,26 @@ function ShelfItem({
   onNavigate,
 }) {
   const [hovered, setHovered] = useState(false);
+
+  const floatingObjectRef = useRef();
+
+  useFrame(() => {
+    if (!floatingObjectRef.current) return;
+
+    const targetY = hovered ? 0.22 : 0;
+    const targetScale = hovered ? 1.05 : 1;
+
+    floatingObjectRef.current.position.y = THREE.MathUtils.lerp(
+      floatingObjectRef.current.position.y,
+      targetY,
+      0.14
+    );
+
+    const currentScale = floatingObjectRef.current.scale.x;
+    const nextScale = THREE.MathUtils.lerp(currentScale, targetScale, 0.14);
+
+    floatingObjectRef.current.scale.set(nextScale, nextScale, nextScale);
+  });
 
   function handleClick() {
     onNavigate(target);
@@ -408,7 +428,6 @@ function ShelfItem({
   return (
     <group
       position={position}
-      scale={hovered ? 1.1 : 1}
       onPointerEnter={() => {
         setHovered(true);
         document.body.style.cursor = "pointer";
@@ -419,16 +438,18 @@ function ShelfItem({
       }}
       onClick={handleClick}
     >
-      <Float
-        speed={hovered ? 2.2 : 0.8}
-        rotationIntensity={hovered ? 0.22 : 0.03}
-        floatIntensity={hovered ? 0.18 : 0.02}
-      >
-        {renderObject()}
-      </Float>
+      <group ref={floatingObjectRef}>
+        <Float
+          speed={hovered ? 2.2 : 0.8}
+          rotationIntensity={hovered ? 0.18 : 0.03}
+          floatIntensity={hovered ? 0.12 : 0.02}
+        >
+          {renderObject()}
+        </Float>
+      </group>
 
       {hovered && (
-        <Html position={[0, 0.9, 0]} center>
+        <Html position={[0, 1.25, 0]} center>
           <div className="item-tooltip">
             <h3>{label}</h3>
             <p>{description}</p>
@@ -466,7 +487,7 @@ function ShelfScene({ onNavigate }) {
         <WallShelf />
 
         <ShelfItem
-          position={[-2, -1.8, 0.2]}
+          position={[-0.5, -0.4, 0]}
           label="Projects"
           description="Engineering projects including CAD design, FDM prototypes, carbon fiber fabrication, and product development."
           type="project"
@@ -475,7 +496,7 @@ function ShelfScene({ onNavigate }) {
         />
 
         <ShelfItem
-          position={[-0.4, -0.65, -0.1]}
+          position={[1.9, -0.65, -0.1]}
           label="Gallery"
           description="Photos, CAD screenshots, process images, prototypes, and final build results."
           type="camera"
@@ -484,7 +505,7 @@ function ShelfScene({ onNavigate }) {
         />
 
         <ShelfItem
-          position={[2, -0.65, 0.3]}
+          position={[-1.9, -2, 0.3]}
           label="Resume"
           description="My resume, technical skills, work experience, and downloadable PDF."
           type="paper"
@@ -493,7 +514,7 @@ function ShelfScene({ onNavigate }) {
         />
 
         <ShelfItem
-          position={[-0, 2.1, -0.38]}
+          position={[-1.8, 1.4, -0.38]}
           label="About Me"
           description="My background, engineering interests, career direction, and design philosophy."
           type="notebook"
@@ -511,7 +532,7 @@ function ShelfScene({ onNavigate }) {
         />
 
         <ShelfItem
-          position={[-1, 1, 0.05]}
+          position={[-1, 0.7, 0.06]}
           label="Contact"
           description="Email, LinkedIn, and contact information for co-op and engineering opportunities."
           type="envelope"
@@ -519,19 +540,21 @@ function ShelfScene({ onNavigate }) {
           onNavigate={onNavigate}
         />
 
-        <OrbitControls
+        {/*<OrbitControls
           enableZoom={true}
           enablePan={true}
-        />
+        />*/}
 
-        {/*<OrbitControls
-          enableZoom={false}
+        <OrbitControls
+          enableZoom={true}
           enablePan={false}
+          minDistance={5.8}
+          maxDistance={11}
           minPolarAngle={Math.PI / 2.7}
           maxPolarAngle={Math.PI / 2.05}
           minAzimuthAngle={-0.35}
           maxAzimuthAngle={0.35}
-        />*/}
+        />
       </Canvas>
     </div>
   );
