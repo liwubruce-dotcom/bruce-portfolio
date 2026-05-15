@@ -661,7 +661,7 @@ function ContactPage({ onBack, onNavigate }) {
   );
 }
 
-function GalleryPage({ onBack, onNavigate }) {
+function GalleryPage({ onBack, onNavigate, onOpenCountry }) {
   return (
     <section className="page">
       <button className="back-button" onClick={onBack}>
@@ -673,7 +673,7 @@ function GalleryPage({ onBack, onNavigate }) {
         <h1>Visual Work & Travel</h1>
         <p>
           A visual space for engineering project photos, CAD screenshots,
-          prototypes, travel memories, and future interactive map-based photo
+          prototypes, travel memories, and interactive map-based photo
           collections.
         </p>
       </div>
@@ -702,31 +702,51 @@ function GalleryPage({ onBack, onNavigate }) {
             <p className="gallery-card-label">Travel Gallery</p>
             <h2>Map-Based Travel Photos</h2>
             <p>
-              A future interactive travel gallery organized by country, map
-              pins, locations, and photo albums.
+              Explore travel photos by country, map pins, locations, and photo
+              albums.
             </p>
 
-            <span className="coming-soon-pill">Planned Feature</span>
+            <button
+              className="gallery-action-button"
+              onClick={() =>
+                document.getElementById("travel-maps")?.scrollIntoView({
+                  behavior: "smooth",
+                })
+              }
+            >
+              View Travel Maps →
+            </button>
           </div>
         </article>
       </div>
 
-      <div className="country-section">
+      <div className="country-section" id="travel-maps">
         <div className="gallery-header">
-          <p className="eyebrow">Future Travel Maps</p>
+          <p className="eyebrow">Travel Maps</p>
           <h2>Countries</h2>
           <p>
-            These country cards will later open interactive maps with red pins.
-            Hovering a pin will show the location name, and clicking it will
-            open a photo page for that location.
+            Select a country to open an interactive map. Hover over a red pin to
+            see the location name, then click it to open that location’s photos.
           </p>
         </div>
 
         <div className="country-grid">
           {travelCountries.map((country) => (
-            <article className="country-card" key={country.id}>
+            <article
+              className="country-card clickable-country-card"
+              key={country.id}
+              onClick={() => onOpenCountry(country.id)}
+            >
               <div className="country-map-placeholder">
-                <span>{country.coverLabel}</span>
+                {country.mapImage ? (
+                  <img
+                    className="country-card-map-image"
+                    src={country.mapImage}
+                    alt={`${country.name} map`}
+                  />
+                ) : (
+                  <span>{country.coverLabel}</span>
+                )}
               </div>
 
               <div className="country-card-content">
@@ -737,6 +757,164 @@ function GalleryPage({ onBack, onNavigate }) {
             </article>
           ))}
         </div>
+      </div>
+    </section>
+  );
+}
+
+function TravelCountryRoutePage() {
+  const navigate = useNavigate();
+  const { countryId } = useParams();
+
+  const country = travelCountries.find((item) => item.id === countryId);
+
+  if (!country) {
+    return (
+      <SectionPage
+        title="Country Not Found"
+        subtitle="Travel Gallery"
+        description="The country map you are looking for does not exist."
+        onBack={() => navigate("/gallery")}
+      />
+    );
+  }
+
+  return (
+    <section className="page">
+      <button className="back-button" onClick={() => navigate("/gallery")}>
+        ← Back to Gallery
+      </button>
+
+      <div className="page-header">
+        <p className="eyebrow">Travel Map</p>
+        <h1>{country.name}</h1>
+        <p>{country.description}</p>
+      </div>
+
+      <div className="travel-map-card">
+        <div className="travel-map-area">
+        {country.mapImage ? (
+          <img
+            className="travel-map-image"
+            src={country.mapImage}
+            alt={`${country.name} map`}
+          />
+        ) : (
+          <div className="travel-map-placeholder">
+            <span>{country.name}</span>
+          </div>
+        )}
+
+        {country.locations.map((location) => (
+          <button
+            className="map-pin"
+            key={location.id}
+            style={{
+              left: `${location.x}%`,
+              top: `${location.y}%`,
+            }}
+            onClick={() => navigate(`/gallery/${country.id}/${location.id}`)}
+            aria-label={location.name}
+          >
+            <span className="pin-dot"></span>
+            <span className="pin-tooltip">{location.name}</span>
+          </button>
+        ))}
+      </div>
+
+      {country.mapCredit && (
+        <p className="map-credit">
+          {country.mapCredit.includes("Vemaps") ? (
+            <a
+              href="https://vemaps.com"
+              target="_blank"
+              rel="noreferrer"
+            >
+              {country.mapCredit}
+            </a>
+          ) : (
+            country.mapCredit
+          )}
+        </p>
+      )}
+    </div>
+
+      <div className="location-list-section">
+        <h2>Locations</h2>
+        <div className="location-card-grid">
+          {country.locations.map((location) => (
+            <article
+              className="location-card"
+              key={location.id}
+              onClick={() => navigate(`/gallery/${country.id}/${location.id}`)}
+            >
+              <h3>{location.name}</h3>
+              <p>{location.description}</p>
+              <span>View photos →</span>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function TravelLocationRoutePage() {
+  const navigate = useNavigate();
+  const { countryId, locationId } = useParams();
+
+  const country = travelCountries.find((item) => item.id === countryId);
+  const location = country?.locations.find((item) => item.id === locationId);
+
+  if (!country || !location) {
+    return (
+      <SectionPage
+        title="Location Not Found"
+        subtitle="Travel Gallery"
+        description="The travel location you are looking for does not exist."
+        onBack={() => navigate("/gallery")}
+      />
+    );
+  }
+
+  return (
+    <section className="page">
+      <button
+        className="back-button"
+        onClick={() => navigate(`/gallery/${country.id}`)}
+      >
+        ← Back to {country.name} Map
+      </button>
+
+      <div className="page-header">
+        <p className="eyebrow">{country.name}</p>
+        <h1>{location.name}</h1>
+        <p>{location.description}</p>
+      </div>
+
+      <div className="travel-masonry-gallery">
+        {location.photos.map((photo, index) => {
+          const photoSrc = typeof photo === "string" ? photo : photo.src;
+
+          return (
+            <figure
+              className="travel-masonry-item"
+              key={`${location.id}-photo-${index}`}
+            >
+              {photoSrc ? (
+                <img
+                  src={photoSrc}
+                  alt={`${location.name} travel photo ${index + 1}`}
+                  loading="lazy"
+                />
+              ) : (
+                <div className="travel-photo-placeholder">
+                  <span>Photo Placeholder</span>
+                </div>
+              )}
+            </figure>
+          );
+        })}
       </div>
     </section>
   );
@@ -819,8 +997,16 @@ function App() {
             <GalleryPage
               onBack={() => navigate("/")}
               onNavigate={goToPage}
+              onOpenCountry={(countryId) => navigate(`/gallery/${countryId}`)}
             />
           }
+        />
+
+        <Route path="/gallery/:countryId" element={<TravelCountryRoutePage />} />
+
+        <Route
+          path="/gallery/:countryId/:locationId"
+          element={<TravelLocationRoutePage />}
         />
 
         <Route
