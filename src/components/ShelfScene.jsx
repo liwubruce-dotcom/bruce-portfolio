@@ -3,58 +3,65 @@ import { OrbitControls, Html, Float, useGLTF } from "@react-three/drei";
 import { Suspense, useEffect, useRef, useMemo, useState } from "react";
 import * as THREE from "three";
 
-function createWoodTexture(baseColor = "#5a3f2e", lineColor = "#7a563e") {
+function createWoodTexture(baseColor = "#5a3f2e", lineColor = "#8a6245") {
   const canvas = document.createElement("canvas");
-  canvas.width = 512;
+  canvas.width = 1024;
   canvas.height = 256;
 
   const ctx = canvas.getContext("2d");
 
-  // Base wood color
-  ctx.fillStyle = baseColor;
+  const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+  gradient.addColorStop(0, baseColor);
+  gradient.addColorStop(0.5, "#6b4a35");
+  gradient.addColorStop(1, "#3f2a20");
+
+  ctx.fillStyle = gradient;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  // Long horizontal grain lines
-  for (let y = 0; y < canvas.height; y += 6) {
-    const wave = Math.sin(y * 0.08) * 12;
-    ctx.strokeStyle = lineColor;
-    ctx.globalAlpha = 0.18 + Math.random() * 0.18;
-    ctx.lineWidth = 1 + Math.random() * 1.5;
-
+  // Main long wood grain
+  for (let y = 0; y < canvas.height; y += 4) {
     ctx.beginPath();
 
-    for (let x = 0; x <= canvas.width; x += 12) {
-      const offset =
-        Math.sin(x * 0.025 + y * 0.05) * 8 +
-        Math.sin(x * 0.055) * 3 +
-        wave;
+    const alpha = 0.08 + Math.random() * 0.18;
+    ctx.strokeStyle = lineColor;
+    ctx.globalAlpha = alpha;
+    ctx.lineWidth = 0.8 + Math.random() * 1.4;
+
+    for (let x = 0; x <= canvas.width; x += 10) {
+      const wave =
+        Math.sin(x * 0.018 + y * 0.08) * 10 +
+        Math.sin(x * 0.045 + y * 0.02) * 4 +
+        Math.sin(y * 0.12) * 3;
 
       if (x === 0) {
-        ctx.moveTo(x, y + offset);
+        ctx.moveTo(x, y + wave);
       } else {
-        ctx.lineTo(x, y + offset);
+        ctx.lineTo(x, y + wave);
       }
     }
 
     ctx.stroke();
   }
 
-  // Subtle lighter streaks
-  for (let y = 0; y < canvas.height; y += 22) {
-    ctx.strokeStyle = "#b08968";
-    ctx.globalAlpha = 0.1;
-    ctx.lineWidth = 2;
+  // Darker grain streaks
+  for (let i = 0; i < 35; i++) {
+    const y = Math.random() * canvas.height;
 
     ctx.beginPath();
+    ctx.strokeStyle = "#2d1c14";
+    ctx.globalAlpha = 0.12;
+    ctx.lineWidth = 1.5 + Math.random() * 2.5;
+
     ctx.moveTo(0, y);
     ctx.bezierCurveTo(
-      140,
-      y + Math.sin(y) * 18,
-      300,
-      y - Math.cos(y) * 14,
-      512,
-      y + Math.sin(y * 0.5) * 12
+      240,
+      y + Math.random() * 35 - 18,
+      620,
+      y + Math.random() * 35 - 18,
+      1024,
+      y + Math.random() * 35 - 18
     );
+
     ctx.stroke();
   }
 
@@ -63,7 +70,7 @@ function createWoodTexture(baseColor = "#5a3f2e", lineColor = "#7a563e") {
   const texture = new THREE.CanvasTexture(canvas);
   texture.wrapS = THREE.RepeatWrapping;
   texture.wrapT = THREE.RepeatWrapping;
-  texture.repeat.set(3, 1);
+  texture.repeat.set(2.2, 0.75);
   texture.colorSpace = THREE.SRGBColorSpace;
 
   return texture;
@@ -72,15 +79,15 @@ function createWoodTexture(baseColor = "#5a3f2e", lineColor = "#7a563e") {
 function WoodMaterial({ dark = false }) {
   const texture = useMemo(() => {
     return dark
-      ? createWoodTexture("#3b261c", "#5c4030")
-      : createWoodTexture("#5a3f2e", "#7a563e");
+      ? createWoodTexture("#3a2419", "#6f4b34")
+      : createWoodTexture("#5a3a28", "#9a6b48");
   }, [dark]);
 
   return (
     <meshStandardMaterial
       map={texture}
-      roughness={0.68}
-      metalness={0.03}
+      roughness={0.58}
+      metalness={0.04}
     />
   );
 }
@@ -131,30 +138,30 @@ function WallShelf() {
       {/* Wall */}
       <mesh position={[0, 3, -0.62]} receiveShadow>
         <planeGeometry args={[50, 15]} />
-        <meshStandardMaterial color="#d8d3c4" roughness={0.92} />
+        <meshStandardMaterial color="#c9c5b8" roughness={0.96} />
       </mesh>
 
       {/* Very subtle lower floor / base shadow plane */}
       <mesh position={[0, -4, 4]} rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
         <planeGeometry args={[50, 10]} />
-        <meshStandardMaterial color="#c8c0ad" roughness={0.9} />
+        <meshStandardMaterial color="#bdb6a7" roughness={0.92} />
       </mesh>
 
       {/* Shelf boards */}
-      <WoodBoard position={[0, -2.2, 0.1]} size={[6.9, 0.14, 1.5]} />
-      <WoodBoard position={[0, -0.82, -0.1]} size={[7.4, 0.14, 0.9]} />
-      <WoodBoard position={[0, 0.32, -0.2]} size={[6.4, 0.14, 1.5]} />
-      <WoodBoard position={[0, 1.55, -0.2]} size={[4.2, 0.14, 0.85]} />
+      <WoodBoard position={[0, -2.2, 0.2]} size={[7.5, 0.14, 1.5]} />
+      <WoodBoard position={[0.7, -0.82, -0.1]} size={[6.5, 0.14, 0.9]} />
+      <WoodBoard position={[-0.7, 0.5, 0.05]} size={[4, 0.14, 1.2]} />
+      <WoodBoard position={[0, 1.55, -0.1]} size={[3.5, 0.14, 0.85]} />
 
       {/* Vertical supports, like a wall-mounted display shelf */}
       {/*<Support position={[-3.25, -1.5, -0.2]} size={[0.1, 1.3, 0.78]} />*/}
       <Support position={[3.25, -1.5, -0.2]} size={[0.1, 1.3, 0.78]} />
 
-      <Support position={[-2, -0.25, -0.2]} size={[0.1, 1.15, 0.78]} />
+      <Support position={[-2, -0.2, -0.2]} size={[0.1, 1.3, 0.78]} />
       {/*<Support position={[2.65, 0.15, -0.2]} size={[0.1, 1.15, 0.78]} />*/}
 
       {/*<Support position={[-1.15, 1.14, -0.2]} size={[0.1, 0.82, 0.75]} />*/}
-      <Support position={[1.15, 0.94, -0.2]} size={[0.1, 1.2, 0.75]} />
+      <Support position={[0.9, 1, -0.2]} size={[0.1, 1.1, 0.75]} />
 
       {/* Small wall brackets 
       <Support position={[-3.45, -1.55, -0.25]} size={[0.1, 0.08, 0.12]} />
@@ -332,16 +339,16 @@ function EnvelopeModel() {
 const modelSettings = {
   project: {
     path: "/models/project-assembly.glb",
-    scale: 6,
-    rotation: [0, Math.PI + 3, 0],
-    position: [0, -0.3, 0],
+    scale: 2,
+    rotation: [0, Math.PI + 4, 1.55],
+    position: [0, -1, 0],
     fallback: <ProjectModel />,
   },
   camera: {
     path: "/models/camera.glb",
     scale: 8,
     rotation: [0, Math.PI + 0.35, 0],
-    position: [0, -0.1, 0.02],
+    position: [0, -0.6, 0.02],
     fallback: <CameraModel />,
   },
   paper: {
@@ -361,7 +368,7 @@ const modelSettings = {
   toolbox: {
     path: "/models/toolbox.glb",
     scale: 0.3,
-    rotation: [0, Math.PI + 3, 0],
+    rotation: [0, Math.PI + 3.1, 0],
     position: [-0.5, -0.8, 0],
     fallback: <ToolboxModel />,
   },
@@ -465,29 +472,46 @@ function ShelfScene({ onNavigate }) {
     <div className="shelf-scene">
       <Canvas
         shadows
+        dpr={[1, 2]}
+        gl={{
+          antialias: true,
+          alpha: false,
+          powerPreference: "high-performance",
+        }}
         camera={{ position: [0, 0.35, 7.4], fov: 42 }}
       >
         <color attach="background" args={["#d8d3c4"]} />
 
-        <ambientLight intensity={0.55} />
+        <ambientLight intensity={0.85} />
 
         <directionalLight
-          position={[-3.5, 4.8, 5]}
-          intensity={1.65}
+          position={[-3.8, 5.2, 4.5]}
+          intensity={1.15}
           castShadow
           shadow-mapSize-width={2048}
           shadow-mapSize-height={2048}
+          shadow-bias={-0.0005}
+          shadow-radius={6}
         />
 
-        <pointLight position={[3.5, 2.2, 3.5]} intensity={0.45} color="#fff1d6" />
-        <pointLight position={[-3, -1, 3]} intensity={0.25} color="#93c5fd" />
+        <pointLight
+          position={[3.4, 2.4, 3.8]}
+          intensity={0.38}
+          color="#fff1d6"
+        />
+
+        <pointLight
+          position={[-3.2, -0.8, 3]}
+          intensity={0.18}
+          color="#93c5fd"
+      />
 
         <ResponsiveCamera />
 
         <WallShelf />
 
         <ShelfItem
-          position={[-0.5, -0.4, 0]}
+          position={[1.5, 0.25, 0]}
           label="Projects"
           description="Engineering projects including CAD design, FDM prototypes, carbon fiber fabrication, and product development."
           type="project"
@@ -496,7 +520,7 @@ function ShelfScene({ onNavigate }) {
         />
 
         <ShelfItem
-          position={[1.9, -0.65, -0.1]}
+          position={[-0.5, -0.15, -0.1]}
           label="Gallery"
           description="Photos, CAD screenshots, process images, prototypes, and final build results."
           type="camera"
@@ -523,7 +547,7 @@ function ShelfScene({ onNavigate }) {
         />
 
         <ShelfItem
-          position={[1.3, -1.28, 0.8]}
+          position={[1.3, -1.28, 1.1]}
           label="Skills"
           description="CAD, SolidWorks, CATIA, manufacturing, prototyping, testing, QA, and engineering tools."
           type="toolbox"
@@ -532,7 +556,7 @@ function ShelfScene({ onNavigate }) {
         />
 
         <ShelfItem
-          position={[-1, 0.7, 0.06]}
+          position={[-1, 0.9, 0.06]}
           label="Contact"
           description="Email, LinkedIn, and contact information for co-op and engineering opportunities."
           type="envelope"
@@ -540,12 +564,12 @@ function ShelfScene({ onNavigate }) {
           onNavigate={onNavigate}
         />
 
-        {/*<OrbitControls
+        <OrbitControls
           enableZoom={true}
           enablePan={true}
-        />*/}
+        />
 
-        <OrbitControls
+        {/*<OrbitControls
           enableZoom={true}
           enablePan={false}
           minDistance={5.8}
@@ -554,7 +578,7 @@ function ShelfScene({ onNavigate }) {
           maxPolarAngle={Math.PI / 2.05}
           minAzimuthAngle={-0.35}
           maxAzimuthAngle={0.35}
-        />
+        />*/}
       </Canvas>
     </div>
   );
