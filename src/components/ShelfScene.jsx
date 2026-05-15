@@ -564,12 +564,12 @@ function ShelfScene({ onNavigate }) {
           onNavigate={onNavigate}
         />
 
-        <OrbitControls
+        {/*<OrbitControls
           enableZoom={true}
           enablePan={true}
-        />
+        />*/}
 
-        {/*<OrbitControls
+        <OrbitControls
           enableZoom={true}
           enablePan={false}
           minDistance={5.8}
@@ -578,7 +578,7 @@ function ShelfScene({ onNavigate }) {
           maxPolarAngle={Math.PI / 2.05}
           minAzimuthAngle={-0.35}
           maxAzimuthAngle={0.35}
-        />*/}
+        />
       </Canvas>
     </div>
   );
