@@ -349,7 +349,7 @@ function ShelfItem({
           <GLBModel
             path="/models/camera.glb"
             scale={8}
-            rotation={[0, Math.PI, 0]}
+            rotation={[0, Math.PI - 0.4, 0]}
             position={[0, -0.3, -0.4]}
           />
         </Suspense>
