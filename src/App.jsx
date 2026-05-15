@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { lazy, Suspense, useState } from "react";
 import { Routes, Route, useNavigate, useParams } from "react-router-dom";
 import "./App.css";
-import ShelfScene from "./components/ShelfScene";
+
+const ShelfScene = lazy(() => import("./components/ShelfScene"));
 import { projects } from "./data/projects";
 import { travelCountries } from "./data/travelGallery";
 
@@ -77,7 +78,15 @@ function HomePage({ onNavigate }) {
         </p>
       </div>
 
-      <ShelfScene onNavigate={onNavigate} />
+      <Suspense
+        fallback={
+          <div className="shelf-scene shelf-loading">
+            <p>Loading 3D shelf...</p>
+          </div>
+        }
+      >     
+        <ShelfScene onNavigate={onNavigate} />
+      </Suspense>
     </section>
   );
 }

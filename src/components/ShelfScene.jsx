@@ -482,7 +482,7 @@ function ShelfScene({ onNavigate }) {
       >
         <color attach="background" args={["#d8d3c4"]} />
 
-        <ambientLight intensity={0.85} />
+        <ambientLight intensity={0.8} />
 
         <directionalLight
           position={[-3.8, 5.2, 4.5]}

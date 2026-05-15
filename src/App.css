@@ -1198,3 +1198,12 @@ main {
     width: 170px;
   }
 }
+
+.shelf-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #cbd5e1;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
