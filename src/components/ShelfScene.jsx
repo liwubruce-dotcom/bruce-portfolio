@@ -511,7 +511,7 @@ function ShelfScene({ onNavigate }) {
         <WallShelf />
 
         <ShelfItem
-          position={[1.5, 0.25, 0]}
+          position={[1.6, 0.25, 0]}
           label="Projects"
           description="Engineering projects including CAD design, FDM prototypes, carbon fiber fabrication, and product development."
           type="project"

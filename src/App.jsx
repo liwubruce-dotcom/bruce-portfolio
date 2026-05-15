@@ -1,12 +1,59 @@
+import { useState } from "react";
 import { Routes, Route, useNavigate, useParams } from "react-router-dom";
 import "./App.css";
 import ShelfScene from "./components/ShelfScene";
 import { projects } from "./data/projects";
 import { travelCountries } from "./data/travelGallery";
 
+function QuickMenu({ onNavigate }) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const menuItems = [
+    { label: "Home", page: "" },
+    { label: "About Me", page: "about" },
+    { label: "Projects", page: "projects" },
+    { label: "Gallery", page: "gallery" },
+    { label: "Resume", page: "resume" },
+    { label: "Skills", page: "skills" },
+    { label: "Contact", page: "contact" },
+  ];
+
+  function handleNavigate(page) {
+    onNavigate(page);
+    setIsOpen(false);
+  }
+
+  return (
+    <div className="quick-menu">
+      <button
+        className="quick-menu-button"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        ☰ Menu
+      </button>
+
+      {isOpen && (
+        <div className="quick-menu-panel">
+          {menuItems.map((item) => (
+            <button
+              key={item.label}
+              className="quick-menu-item"
+              onClick={() => handleNavigate(item.page)}
+            >
+              {item.label}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function HomePage({ onNavigate }) {
   return (
     <section className="shelf-homepage">
+      <QuickMenu onNavigate={onNavigate} />
+
       <div className="intro-panel">
         <p className="eyebrow">Mechanical Engineering Portfolio</p>
         <h1>Bruce Shi</h1>
