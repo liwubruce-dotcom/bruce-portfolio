@@ -129,38 +129,39 @@ function WallShelf() {
   return (
     <group>
       {/* Wall */}
-      <mesh position={[0, 0, -0.62]} receiveShadow>
-        <planeGeometry args={[8.8, 5.2]} />
+      <mesh position={[0, 3, -0.62]} receiveShadow>
+        <planeGeometry args={[50, 15]} />
         <meshStandardMaterial color="#d8d3c4" roughness={0.92} />
       </mesh>
 
       {/* Very subtle lower floor / base shadow plane */}
-      <mesh position={[0, -2.05, 0.15]} rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
-        <planeGeometry args={[8.8, 2.4]} />
+      <mesh position={[0, -4, 4]} rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
+        <planeGeometry args={[50, 10]} />
         <meshStandardMaterial color="#c8c0ad" roughness={0.9} />
       </mesh>
 
       {/* Shelf boards */}
-      <WoodBoard position={[0, -1.55, 0]} size={[6.9, 0.14, 0.9]} />
-      <WoodBoard position={[0, -0.42, 0]} size={[7.4, 0.14, 0.9]} />
-      <WoodBoard position={[0, 0.72, 0]} size={[6.4, 0.14, 0.9]} />
-      <WoodBoard position={[0, 1.55, 0]} size={[4.2, 0.14, 0.85]} />
+      <WoodBoard position={[0, -2.2, 0.1]} size={[6.9, 0.14, 1.5]} />
+      <WoodBoard position={[0, -0.82, -0.1]} size={[7.4, 0.14, 0.9]} />
+      <WoodBoard position={[0, 0.32, -0.2]} size={[6.4, 0.14, 1.5]} />
+      <WoodBoard position={[0, 1.55, -0.2]} size={[4.2, 0.14, 0.85]} />
 
       {/* Vertical supports, like a wall-mounted display shelf */}
-      <Support position={[-3.25, -0.98, 0]} size={[0.1, 1.15, 0.78]} />
-      <Support position={[3.25, -0.98, 0]} size={[0.1, 1.15, 0.78]} />
+      {/*<Support position={[-3.25, -1.5, -0.2]} size={[0.1, 1.3, 0.78]} />*/}
+      <Support position={[3.25, -1.5, -0.2]} size={[0.1, 1.3, 0.78]} />
 
-      <Support position={[-2.65, 0.15, 0]} size={[0.1, 1.15, 0.78]} />
-      <Support position={[2.65, 0.15, 0]} size={[0.1, 1.15, 0.78]} />
+      <Support position={[-2, -0.25, -0.2]} size={[0.1, 1.15, 0.78]} />
+      {/*<Support position={[2.65, 0.15, -0.2]} size={[0.1, 1.15, 0.78]} />*/}
 
-      <Support position={[-1.15, 1.14, 0]} size={[0.1, 0.82, 0.75]} />
-      <Support position={[1.15, 1.14, 0]} size={[0.1, 0.82, 0.75]} />
+      {/*<Support position={[-1.15, 1.14, -0.2]} size={[0.1, 0.82, 0.75]} />*/}
+      <Support position={[1.15, 0.94, -0.2]} size={[0.1, 1.2, 0.75]} />
 
-      {/* Small wall brackets */}
-      <Support position={[-3.45, -1.55, -0.25]} size={[0.28, 0.08, 0.12]} />
-      <Support position={[3.45, -1.55, -0.25]} size={[0.28, 0.08, 0.12]} />
-      <Support position={[-3.7, -0.42, -0.25]} size={[0.28, 0.08, 0.12]} />
-      <Support position={[3.7, -0.42, -0.25]} size={[0.28, 0.08, 0.12]} />
+      {/* Small wall brackets 
+      <Support position={[-3.45, -1.55, -0.25]} size={[0.1, 0.08, 0.12]} />
+      <Support position={[3.45, -1.55, -0.25]} size={[0.1, 0.08, 0.12]} />
+      <Support position={[-3.7, -0.42, -0.25]} size={[0.1, 0.08, 0.12]} />
+      <Support position={[3.7, -0.42, -0.25]} size={[0.1, 0.08, 0.12]} />
+      */}
     </group>
   );
 }
@@ -328,6 +329,51 @@ function EnvelopeModel() {
   );
 }
 
+const modelSettings = {
+  project: {
+    path: "/models/project-assembly.glb",
+    scale: 6,
+    rotation: [0, Math.PI + 3, 0],
+    position: [0, -0.3, 0],
+    fallback: <ProjectModel />,
+  },
+  camera: {
+    path: "/models/camera.glb",
+    scale: 8,
+    rotation: [0, Math.PI + 0.35, 0],
+    position: [0, -0.1, 0.02],
+    fallback: <CameraModel />,
+  },
+  paper: {
+    path: "/models/resume-folder.glb",
+    scale: 0.5,
+    rotation: [0, Math.PI + 2, 0],
+    position: [0, -0.08, 0],
+    fallback: <PaperModel />,
+  },
+  notebook: {
+    path: "/models/notebook.glb",
+    scale: 0.03,
+    rotation: [1.2, Math.PI + 3.05, 0.3],
+    position: [0, 0.9, 0],
+    fallback: <NotebookModel />,
+  },
+  toolbox: {
+    path: "/models/toolbox.glb",
+    scale: 0.32,
+    rotation: [0, Math.PI + 3, 0],
+    position: [-0.5, -0.8, 0],
+    fallback: <ToolboxModel />,
+  },
+  envelope: {
+    path: "/models/envelope.glb",
+    scale: 0.15,
+    rotation: [4, Math.PI, 0],
+    position: [0, 0.2, 0.2],
+    fallback: <EnvelopeModel />,
+  },
+};
+
 function ShelfItem({
   position,
   label,
@@ -343,25 +389,21 @@ function ShelfItem({
   }
 
   function renderObject() {
-    if (type === "camera") {
-      return (
-        <Suspense fallback={<CameraModel />}>
-          <GLBModel
-            path="/models/camera.glb"
-            scale={8}
-            rotation={[0, Math.PI - 0.4, 0]}
-            position={[0, -0.3, -0.4]}
-          />
-        </Suspense>
-      );
-    }
-    if (type === "project") return <ProjectModel />;
-    if (type === "paper") return <PaperModel />;
-    if (type === "notebook") return <NotebookModel />;
-    if (type === "toolbox") return <ToolboxModel />;
-    if (type === "envelope") return <EnvelopeModel />;
-    return null;
-  }
+  const model = modelSettings[type];
+
+  if (!model) return null;
+
+  return (
+    <Suspense fallback={model.fallback}>
+      <GLBModel
+        path={model.path}
+        scale={model.scale}
+        rotation={model.rotation}
+        position={model.position}
+      />
+    </Suspense>
+  );
+}
 
   return (
     <group
@@ -424,7 +466,7 @@ function ShelfScene({ onNavigate }) {
         <WallShelf />
 
         <ShelfItem
-          position={[-2.35, -1.13, 0.38]}
+          position={[-2, -1.8, 0.2]}
           label="Projects"
           description="Engineering projects including CAD design, FDM prototypes, carbon fiber fabrication, and product development."
           type="project"
@@ -433,7 +475,7 @@ function ShelfScene({ onNavigate }) {
         />
 
         <ShelfItem
-          position={[0, -1.13, 0.38]}
+          position={[-0.4, -0.65, -0.1]}
           label="Gallery"
           description="Photos, CAD screenshots, process images, prototypes, and final build results."
           type="camera"
@@ -442,7 +484,7 @@ function ShelfScene({ onNavigate }) {
         />
 
         <ShelfItem
-          position={[2.35, -1.13, 0.38]}
+          position={[2, -0.65, 0.3]}
           label="Resume"
           description="My resume, technical skills, work experience, and downloadable PDF."
           type="paper"
@@ -451,7 +493,7 @@ function ShelfScene({ onNavigate }) {
         />
 
         <ShelfItem
-          position={[-2.35, 0.12, 0.38]}
+          position={[-0, 2.1, -0.38]}
           label="About Me"
           description="My background, engineering interests, career direction, and design philosophy."
           type="notebook"
@@ -460,7 +502,7 @@ function ShelfScene({ onNavigate }) {
         />
 
         <ShelfItem
-          position={[0, 0.12, 0.38]}
+          position={[1.3, -1.28, 0.8]}
           label="Skills"
           description="CAD, SolidWorks, CATIA, manufacturing, prototyping, testing, QA, and engineering tools."
           type="toolbox"
@@ -469,7 +511,7 @@ function ShelfScene({ onNavigate }) {
         />
 
         <ShelfItem
-          position={[2.35, 0.12, 0.38]}
+          position={[-1, 1, 0.05]}
           label="Contact"
           description="Email, LinkedIn, and contact information for co-op and engineering opportunities."
           type="envelope"
@@ -478,13 +520,18 @@ function ShelfScene({ onNavigate }) {
         />
 
         <OrbitControls
+          enableZoom={true}
+          enablePan={true}
+        />
+
+        {/*<OrbitControls
           enableZoom={false}
           enablePan={false}
           minPolarAngle={Math.PI / 2.7}
           maxPolarAngle={Math.PI / 2.05}
           minAzimuthAngle={-0.35}
           maxAzimuthAngle={0.35}
-        />
+        />*/}
       </Canvas>
     </div>
   );
