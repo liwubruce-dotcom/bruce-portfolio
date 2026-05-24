@@ -1,10 +1,20 @@
-import { lazy, Suspense, useState } from "react";
-import { Routes, Route, useNavigate, useParams } from "react-router-dom";
+import { lazy, Suspense, useEffect, useState } from "react";
+import { Routes, Route, useLocation, useNavigate, useParams } from "react-router-dom";
 import "./App.css";
 
 const ShelfScene = lazy(() => import("./components/ShelfScene"));
 import { projects } from "./data/projects";
 import { travelCountries } from "./data/travelGallery";
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
 
 function QuickMenu({ onNavigate }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -995,6 +1005,8 @@ function App() {
 
   return (
     <main>
+      <ScrollToTop />
+
       <Routes>
         <Route
           path="/"
