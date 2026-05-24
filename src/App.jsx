@@ -517,12 +517,12 @@ function AboutPage({ onBack }) {
         <div className="about-photo-card">
           <img
             src="/profile/selfie.jpg"
-            alt="Bruce Shi"
+            alt="Bruce (Xubin) Shi"
             className="about-selfie"
           />
 
           <div className="about-profile-info">
-            <h2>Bruce Shi</h2>
+            <h2>Bruce (Xubin) Shi</h2>
             <p>Mechanical Engineering Student</p>
             <span>University of Waterloo</span>
           </div>
@@ -530,7 +530,7 @@ function AboutPage({ onBack }) {
 
         <div className="about-content">
           <p className="eyebrow">About Me</p>
-          <h1>Designing, building, and improving mechanical systems.</h1>
+          <h2>Designing, building, and improving mechanical systems.</h2>
 
           <p>
             I am a Mechanical Engineering student at the University of Waterloo,
