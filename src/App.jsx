@@ -65,13 +65,6 @@ function HomePage({ onNavigate }) {
           skills, resume, gallery, and contact information.
         </p>
 
-        <div className="homepage-tags">
-          <span>CAD Design</span>
-          <span>Prototyping</span>
-          <span>Manufacturing</span>
-          <span>Automotive</span>
-        </div>
-
         <p className="shelf-instruction">
           Hover over an object to preview it. Click an object to open that
           section.
@@ -914,65 +907,65 @@ function TravelLocationRoutePage() {
       </div>
 
       <div className="travel-masonry-gallery">
-  {location.photos.map((photo, index) => {
-    const photoSrc = typeof photo === "string" ? photo : photo.src;
+        {location.photos.map((photo, index) => {
+          const photoSrc = typeof photo === "string" ? photo : photo.src;
 
-    return (
-      <figure
-        className="travel-masonry-item"
-        key={`${location.id}-photo-${index}`}
-      >
-        {photoSrc ? (
+          return (
+            <figure
+              className="travel-masonry-item"
+              key={`${location.id}-photo-${index}`}
+            >
+              {photoSrc ? (
+                <img
+                  src={photoSrc}
+                  alt={`${location.name} travel photo ${index + 1}`}
+                  loading="lazy"
+                  onClick={() => setSelectedPhotoIndex(index)}
+                />
+               ) : (
+                <div className="travel-photo-placeholder">
+                  <span>Photo Placeholder</span>
+                </div>
+              )}
+            </figure>
+          );
+        })}
+      </div>
+
+      {selectedPhotoSrc && (
+        <div
+          className="photo-lightbox"
+          onClick={() => setSelectedPhotoIndex(null)}
+        >
+          <button
+            className="lightbox-close"
+            onClick={() => setSelectedPhotoIndex(null)}
+          >
+            ×
+          </button>
+
+          <button
+            className="lightbox-arrow lightbox-arrow-left"
+            onClick={showPreviousPhoto}
+          >
+            ‹
+          </button>
+
           <img
-            src={photoSrc}
-            alt={`${location.name} travel photo ${index + 1}`}
-            loading="lazy"
-            onClick={() => setSelectedPhotoIndex(index)}
+            className="lightbox-image"
+            src={selectedPhotoSrc}
+            alt={`${location.name} enlarged travel photo`}
+            onClick={(event) => event.stopPropagation()}
           />
-        ) : (
-          <div className="travel-photo-placeholder">
-            <span>Photo Placeholder</span>
-          </div>
-        )}
-      </figure>
-    );
-  })}
-</div>
 
-{selectedPhotoSrc && (
-  <div
-    className="photo-lightbox"
-    onClick={() => setSelectedPhotoIndex(null)}
-  >
-    <button
-      className="lightbox-close"
-      onClick={() => setSelectedPhotoIndex(null)}
-    >
-      ×
-    </button>
-
-    <button
-      className="lightbox-arrow lightbox-arrow-left"
-      onClick={showPreviousPhoto}
-    >
-      ‹
-    </button>
-
-    <img
-      className="lightbox-image"
-      src={selectedPhotoSrc}
-      alt={`${location.name} enlarged travel photo`}
-      onClick={(event) => event.stopPropagation()}
-    />
-
-    <button
-      className="lightbox-arrow lightbox-arrow-right"
-      onClick={showNextPhoto}
-    >
-      ›
-    </button>
-  </div>
-)}
+          <button
+            className="lightbox-arrow lightbox-arrow-right"
+            onClick={showNextPhoto}
+          >
+            ›
+          </button>
+        </div>
+      )}
     </section>
   );
 }

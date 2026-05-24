@@ -66,7 +66,7 @@ main {
   .shelf-homepage {
     grid-template-columns: 1fr;
     padding: 32px 6%;
-  }
+  } 
 
   .intro-panel h1 {
     font-size: 48px;
@@ -1617,5 +1617,115 @@ main {
 
   .lightbox-arrow-right {
     right: 14px;
+  }
+}
+
+
+
+
+/* Global mobile font size cleanup */
+@media (max-width: 700px) {
+  .page {
+    padding: 28px 5%;
+  }
+
+  .page-header h1 {
+    font-size: 36px;
+    line-height: 1.05;
+    letter-spacing: -1px;
+  }
+
+  .page-header p {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .eyebrow {
+    font-size: 13px;
+    letter-spacing: 1.5px;
+  }
+
+  .intro-panel h1 {
+    font-size: 44px;
+    line-height: 1.05;
+  }
+
+  .intro-panel p {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .shelf-instruction {
+    font-size: 15px !important;
+    line-height: 1.55;
+  }
+
+  .project-detail-layout h1 {
+    font-size: 38px;
+    line-height: 1.05;
+    letter-spacing: -1px;
+  }
+
+  .project-detail-summary {
+    font-size: 16px;
+    line-height: 1.65;
+  }
+
+  .about-content h1 {
+    font-size: 36px;
+    line-height: 1.08;
+    letter-spacing: -1px;
+  }
+
+  .about-content > p {
+    font-size: 16px;
+    line-height: 1.65;
+  }
+
+  .contact-main h1 {
+    font-size: 42px;
+    line-height: 1.05;
+    letter-spacing: -1px;
+  }
+
+  .contact-main p {
+    font-size: 16px;
+    line-height: 1.65;
+  }
+
+  .gallery-header h2,
+  .location-list-section h2,
+  .detail-section h2 {
+    font-size: 28px;
+  }
+
+  .portfolio-project-card h2,
+  .resume-card-content h2,
+  .skill-card-header h2,
+  .country-card h3,
+  .location-card h3 {
+    font-size: 22px;
+  }
+
+  .project-card-description,
+  .resume-card-content p,
+  .skill-card-header p,
+  .country-card p,
+  .location-card p,
+  .detail-section li {
+    font-size: 15px;
+    line-height: 1.55;
+  }
+
+  .skill-chip-list span,
+  .skill-list span,
+  .tool-list span {
+    font-size: 13px;
+    padding: 7px 10px;
+  }
+
+  .back-button {
+    font-size: 14px;
+    padding: 10px 14px;
   }
 }
