@@ -357,7 +357,7 @@ export const travelCountries = [
           "/travel/us/detroit/photo-7.jpg",   
           "/travel/us/detroit/photo-8.jpg",
           "/travel/us/detroit/photo-9.jpg", 
-          "/travel/us/detroit/photo-9.jpg", 
+          "/travel/us/detroit/photo-10.jpg", 
         ],
       },
     ],
