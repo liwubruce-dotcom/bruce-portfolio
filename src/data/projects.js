@@ -9,7 +9,7 @@ export const projects = [
     imageLabel: "Mouse Project Image",
     description:
       "Designed and manufactured a fully customized ergonomic mouse tailored to hand geometry, integrating reverse-engineered electronics with a lightweight carbon fiber housing.",
-    skills: ["SolidWorks", "Blender", "FDM 3D Printing", "Composite Manufacturing", "Mold Design", "Electronics Repair"],
+    skills: ["Product Design", "Prototyping","SolidWorks", "Blender", "FDM 3D Printing", "Composite Manufacturing", "Mold Design", "Electronics Repair"],
     detailSections: [
         {
             title: "Electronics Reverse Engineering",
@@ -115,7 +115,7 @@ export const projects = [
     imageLabel: "Useless Box Image",
     description:
       "Designed and built an interactive Useless Box powered by Arduino UNO and servo motors, focusing on mechanical design, and iteration through CAD.",
-    skills: ["SolidWorks", "Arduino UNO", "Servo Motors", "Bambu Lab A1", "FDM 3D Printing"],
+    skills: ["Mechatronic Design", "Prototyping", "SolidWorks", "Arduino UNO", "Servo Motors", "Bambu Lab A1", "FDM 3D Printing"],
     details: [
       "Created 7 custom 3D-printed parts in SolidWorks, including enclosure, mounts, and internal supports.",
       "Ensured precise servo positioning and clearance.",
@@ -139,7 +139,7 @@ export const projects = [
     imageLabel: "Flappy Bird Toy Image",
     description:
       "Developed a physical tabletop toy replicating the digital Flappy Bird game, applying mechanical design and prototyping skills to meet functional and safety requirements.",
-    skills: ["SolidWorks", "FDM 3D Printing", "TT Motors", "Circuit Prototyping"],
+    skills: ["Mechanical Design", "Prototyping", "SolidWorks", "FDM 3D Printing", "TT Motors", "Circuit Prototyping"],
     details: [
       "Designed 4 custom parts in SolidWorks, including gears, shafts, slider, and side panels.",
       "Applied +0.5 mm tolerance adjustments for TT-motor shaft fit.",
@@ -161,7 +161,7 @@ export const projects = [
     imageLabel: "Card Sorter Image",
     description:
       "Designed and built an autonomous robot capable of sorting, shuffling, and dealing a 52-card deck using LEGO EV3 components, custom 3D-printed parts, and laser-cut supports.",
-    skills: ["LEGO EV3", "SolidWorks", "FDM 3D Printing", "Laser Cutting", "Encoder-Based Motor Control"],
+    skills: ["Robotics", "Mechanical Design", "Automation", "LEGO EV3", "SolidWorks", "FDM 3D Printing", "Laser Cutting", "Encoder-Based Motor Control"],
     details: [
       "Modeled custom 3D-printed parts including ramp, funnel, rollers, containers, and LEGO connectors.",
       "Integrated EV3 motors and LEGO Technic assemblies.",
@@ -186,7 +186,7 @@ export const projects = [
     imageLabel: "McLaren Model Image",
     description:
       "Developing a high-detail 3D model of the McLaren 720S Spider in Blender, focusing on advanced surface modeling, geometry control, and visualization.",
-    skills: ["Blender", "Surface Modeling", "UV Mapping", "Shaders", "Cycles Rendering"],
+    skills: ["Blender", "Automotive Visualization", "Surface Modeling", "UV Mapping", "Shaders", "Cycles Rendering"],
     details: [
       "Created 100+ individual body objects, including panels, wheels, lights, and interior features.",
       "Referenced blueprints and images to maintain real-world proportions.",

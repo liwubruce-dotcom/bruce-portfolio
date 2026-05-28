@@ -140,8 +140,7 @@ function ProjectsPage({ onBack, onOpenProject }) {
               </p>
 
               <h2>{project.title}</h2>
-
-              <p className="project-card-category">{project.category}</p>
+    
 
               <p className="project-card-description">
                 {project.description}
