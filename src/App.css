@@ -1729,3 +1729,48 @@ main {
     padding: 10px 14px;
   }
 }
+
+/* Make project detail text wider on phone */
+@media (max-width: 700px) {
+  .detail-section {
+    padding: 22px 14px;
+  }
+
+  .detail-subsection {
+    padding: 20px 16px;
+  }
+
+  .detail-subsection ul {
+    padding-left: 18px;
+  }
+
+  .detail-subsection li {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+}
+
+/* Make project detail text easier to read on laptop/desktop */
+@media (min-width: 900px) {
+  .detail-section-list {
+    max-width: 1150px;
+    margin: 0 auto;
+  }
+
+  .detail-subsection {
+    max-width: 1150px;
+  }
+
+  .detail-subsection li {
+    max-width: 1000px;
+  }
+}
+
+/* Align Project Details title with the inner detail boxes on desktop */
+@media (min-width: 900px) {
+  .detail-section > h2 {
+    max-width: 1150px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
