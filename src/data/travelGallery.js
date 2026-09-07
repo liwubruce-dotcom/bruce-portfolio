@@ -380,6 +380,7 @@ export const travelCountries = [
           "/travel/us/nyc/photo-11.jpg",
           "/travel/us/nyc/photo-12.jpg", 
           "/travel/us/nyc/photo-13.jpg", 
+          "/travel/us/nyc/photo-14.jpg", 
         ],
       },
     ],
